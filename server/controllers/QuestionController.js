@@ -1,10 +1,10 @@
 const { default: mongoose } = require("mongoose")
 const Question = require("../models/Question")
 
-// TODO: apply correct status codes
+// TODO: check if the status codes are correct
+// TODO: create pagination from nodejs
 
 // add a question
-// TODO: try to use Create function
 const addQuestion = async (req, res) => {
   const newQuestion = new Question({ ...req.body })
 
@@ -18,7 +18,6 @@ const addQuestion = async (req, res) => {
 }
 
 // view question
-// TODO: (Add pagination)
 const getAllQuestions = async (req, res) => {
   try {
     const allQuestions = await Question.find()
@@ -29,7 +28,6 @@ const getAllQuestions = async (req, res) => {
 }
 
 // update question
-// TODO: use spreader in updatequestion object
 const updateQuestion = async (req, res) => {
   const { id } = req.params
   const { quID, question, category, isPublished, isActive } = req.body
@@ -69,7 +67,7 @@ const deleteQuestion = async (req, res) => {
 }
 
 // publish question
-// By default question publication is DRAFT (isPublished = false)
+// By default question publication is DRAFT 
 const publishQuestion = async (req, res) => {
   const { id } = req.params
 
@@ -78,6 +76,7 @@ const publishQuestion = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send(`Cannot find a question with id: ${id}`)
 
+    // update the publish field
     const updatedQuestion = await Question.findByIdAndUpdate(
       id,
       { $set: req.body },
