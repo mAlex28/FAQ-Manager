@@ -1,6 +1,7 @@
 import React from 'react';
-import Box from "@mui/material/Box"
-import { Grid } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
 
@@ -13,9 +14,10 @@ export default function Footer(props) {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        columns={{ xs: 12, md: 12 }}
-        
-      >
+        sx={{
+          padding: " 2rem 4rem",
+        }}
+v      >
         <Grid
           item
           xs={12}
@@ -45,7 +47,11 @@ export default function Footer(props) {
             md: "flex-end",
           }}
         >
-          <Box component="nav">
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+          >
             <Link href="#" variant="caption" color="textPrimary">
               Privacy Policy
             </Link>
@@ -55,10 +61,10 @@ export default function Footer(props) {
             <Link href="#" variant="caption" color="textPrimary">
               Help Center
             </Link>
-          </Box>
+          </Stack>
+          
         </Grid>
       </Grid>
-     
     </footer>
   )
 }
