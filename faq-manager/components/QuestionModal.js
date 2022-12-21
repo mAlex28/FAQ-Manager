@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Grid from "@mui/material/Grid"
 import Switch  from "@mui/material/Switch"
+import { createQuestion } from "../api/api"
 
 const style = {
   position: "absolute",
@@ -40,12 +41,13 @@ export default function QuestionModal({openModal, handleClose, setOpenModal}) {
         })
      }
      
-     const handleSubmit = (e) => {
+     const handleSubmit = async (e) => {
        e.preventDefault()
 
        if (!questionData.question || !questionData.category) {
         setQuestionErrorText("Fields cannot be empty")
        } else {
+         createQuestion({...questionData})
          console.log({
            questionData,
          })

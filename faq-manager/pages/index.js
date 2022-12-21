@@ -5,7 +5,7 @@ import QuestionTable from '../components/QuestionTable'
 import SearchBox from '../components/SearchBox'
 import Footer from '../components/Footer'
 
-export default function Home() {
+export default function Home({results}) {
 
   return (
     <div className={styles.container}>
@@ -17,26 +17,26 @@ export default function Home() {
       <main className={styles.main}>
         <TopBar />
         <SearchBox />
-        {/* <QuestionTable result={results}/> */}
+        <QuestionTable result={results}/>
         <Footer />
       </main>
     </div>
   )
 }
 
-// export async function getServerSideProps() {
-//   // Fetch data from external API
-//   const res = await fetch(`http://localhost:5000/`)
-//   const data = await res.json()
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:5000/`)
+  const data = await res.json()
 
 
-//   // Pass data to the page via props
-//   return {
-//     props: {
-//       results: data,
-//     },
-//   }
-// }
+  // Pass data to the page via props
+  return {
+    props: {
+      results: data,
+    },
+  }
+}
 
 // export default function Home({results}) {
 //   return (

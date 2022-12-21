@@ -30,24 +30,15 @@ const getAllQuestions = async (req, res) => {
 // update question
 const updateQuestion = async (req, res) => {
   const { id } = req.params
-  const { quID, question, category, isPublished, isActive } = req.body
+  const updatedQuestion = req.body
 
   try {
     // verify if the question exists
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send(`Cannot find a question with id: ${id}`)
-
-    const updatedQuestion = {
-      quID,
-      question,
-      category,
-      isPublished,
-      isActive,
-      _id: id,
-    }
-
+   
     await Question.findByIdAndUpdate(id, updatedQuestion, { new: true })
-    res.json(updatedQuestion)
+    res.status(200).json(updatedQuestion)
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
