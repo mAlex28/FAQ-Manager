@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
 
 
-export default function Footer(props) {
+export default function Footer() {
   return (
     <footer>
       <Grid
@@ -17,7 +17,7 @@ export default function Footer(props) {
         sx={{
           padding: " 2rem 4rem",
         }}
-v      >
+      >
         <Grid
           item
           xs={12}

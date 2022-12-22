@@ -17,11 +17,22 @@ const addQuestion = async (req, res) => {
   }
 }
 
-// view question
+// view all questions
 const getAllQuestions = async (req, res) => {
   try {
     const allQuestions = await Question.find()
     res.json({ data: allQuestions })
+  } catch (error) {
+    res.status(404).json({ message: error.message })
+  }
+}
+
+// view a question 
+const getQuestion = async (req, res) => {
+   const { id } = req.params;
+  try {
+    const question = await Question.findById(id)
+    res.status(200).json(question)
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
@@ -48,13 +59,17 @@ const updateQuestion = async (req, res) => {
 const deleteQuestion = async (req, res) => {
   const { id } = req.params
 
-  // verify if the question exists
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`Cannot find a question with id: ${id}`)
+  try {
+    // verify if the question exists
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send(`Cannot find a question with id: ${id}`)
 
-  await Question.findByIdAndRemove(id)
+   await Question.findByIdAndRemove(id)
 
-  res.json({ message: "Question deleted" })
+    res.json({ message: "Question deleted" })
+  } catch (error) {
+    res.status(404).json({ message: error.message })
+  }
 }
 
 // publish question
@@ -125,9 +140,11 @@ const searchQuestion = async (req, res) => {
 module.exports = {
   addQuestion,
   getAllQuestions,
+  getQuestion,
   updateQuestion,
   deleteQuestion,
   publishQuestion,
   toogleActivation,
   searchQuestion,
+
 }
